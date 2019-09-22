@@ -22,19 +22,19 @@
                 <!-- <li class="nav-item dropdown"> -->
                 <!-- <a class="nav-link dropdown-toggle" style= 'margin-right:30px' data-toggle="dropdown"
                   aria-haspopup="true" aria-expanded="false"> -->
-                  <i class="fas fa-user"></i>&nbsp;<strong>{{current_user.username}}</strong> </a>
+                  <!-- <i class="fas fa-user"></i>&nbsp;<strong>{{current_user.username}}</strong> </a> -->
                 <div >
-                  <!-- <a class="dropdown-item" href="{{url_for('main.profile',name=current_user.username)}}"><i class="far fa-user"></i>&nbsp; My account</a> -->
-                  <a class="dropdown-item" href="{{url_for('auth.logout')}}"><i class="fas fa-sign-out-alt"></i>&nbsp; Log out</a>
+                  <a  href="{{url_for('auth.logout')}}" style="color: white"> Log Out</a>
+                  <!-- <a  href="{{url_for('auth.logout')}}"></a><i class="fas fa-sign-out-alt"></i> Log out</a> -->
                 </div>
                 </li>
                 
                 {% else %}
                 <li class="nav-item">
-                    <a  class="nav-link" href="{{url_for('auth.login')}}" style= 'margin-right:30px'><i class="fas fa-sign-in-alt"></i>&nbsp; <strong>Log In</strong></a>
+                    <a  class="nav-link" href="{{url_for('auth.login')}}" style= 'margin-right:30px'> <strong>Log In</strong></a>
                 </li>
                 <li class="nav-item">
-                        <a style= 'margin-right:30px' class="nav-link" href="{{url_for('auth.signup')}}"><i class="fas fa-user-plus"></i></i>&nbsp; <strong>Sign Up</strong></a>
+                        <a style= 'margin-right:30px' class="nav-link" href="{{url_for('auth.signup')}}"> <strong>Sign Up</strong></a>
                     </li>
                 {%endif%}
     
