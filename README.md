@@ -14,7 +14,7 @@ use code . for visual code
 ## Technology used
 * Python3.6
 * terminal 
-* ubuntu windows
+* ubuntu window
 ## Run
 Use Terminal to open the server and the brouser to run this application
 
