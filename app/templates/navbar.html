@@ -1,7 +1,8 @@
 
-<nav class="mb-1 navbar navbar-expand-lg navbar-dark ">
+<nav class="mb-1 navbar navbar-expand-lg navbar-dark" >
+    
         <a class="navbar-brand" href="{{url_for('main.index')}}" style="color: black"><strong>Pich</strong> </a>
-    <div class="collapse navbar-collapse">
+    <div  class="collapse navbar-collapse">
                 <ul class="navbar-nav mr-auto">
                         <li class="nav-item">
                    
@@ -18,6 +19,7 @@
         
                 <li class="nav-item">
                         <a href="{{url_for('main.profile',name=current_user.username)}}"  style="color: white">Profile</a></li>
+                        <br>
             
                 <div >
                      <a  href="{{url_for('auth.logout')}}" style="color: white"> Log Out</a>
@@ -29,7 +31,7 @@
                 <li class="nav-item">
              
                
-                 <a class="nav-link" href="{{url_for('auth.login')}}" style= 'margin-right:30px'> <strong>Log In</strong></a>
+                 <a href="{{url_for('auth.login')}}" style="margin-right:30px " class="nav-link"> <strong>Log In</strong></a>
                 
                 </li>
                     <li class="nav-item">
