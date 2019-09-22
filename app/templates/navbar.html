@@ -1,35 +1,39 @@
 
 <nav class="mb-1 navbar navbar-expand-lg navbar-dark ">
         <a class="navbar-brand" href="{{url_for('main.index')}}" style="color: black"><strong>Pich</strong> </a>
-        <div class="collapse navbar-collapse">
+    <div class="collapse navbar-collapse">
                 <ul class="navbar-nav mr-auto">
-                    <li class="nav-item">
-                      <a class="nav-link" href="{{url_for('main.index')}}" style="color: black">All Pitches</a>
+                        <li class="nav-item">
+                   
+                            <a class="nav-link" href="{{url_for('main.index')}}" style="color: black">All Pitches</a>
                     </li>
                     {% if current_user.is_authenticated %}
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{url_for('main.new_pitch')}}"  style="color: black">New Pitch</a>
+                    <li class="nav-item">                    
+                            <a class="nav-link" href="{{url_for('main.new_pitch')}}"  style="color: black">New Pitch</a>
                     </li>
                     {% endif %}
                 </ul>
             <ul class="navbar-nav ml-auto">
-               
-                {% if current_user.is_authenticated %}
-                <li class="nav-item"><a href="{{url_for('main.profile',name=current_user.username)}}"  style="color: white">Profile</a></li>
+               {% if current_user.is_authenticated %}
+        
+                <li class="nav-item">
+                        <a href="{{url_for('main.profile',name=current_user.username)}}"  style="color: white">Profile</a></li>
             
                 <div >
-                  <a  href="{{url_for('auth.logout')}}" style="color: white"> Log Out</a>
+                     <a  href="{{url_for('auth.logout')}}" style="color: white"> Log Out</a>
                
                 </div>
-                </li>
+            </li>
                 
                 {% else %}
                 <li class="nav-item">
-                    <a  class="nav-link" href="{{url_for('auth.login')}}" style= 'margin-right:30px'> <strong>Log In</strong></a>
+             
+               
+                 <a class="nav-link" href="{{url_for('auth.login')}}" style= 'margin-right:30px'> <strong>Log In</strong></a>
+                
                 </li>
-                <li class="nav-item">
-                        <a style= 'margin-right:30px' class="nav-link" href="{{url_for('auth.signup')}}"> <strong>Sign Up</strong></a>
-                 
+                    <li class="nav-item">
+                    <a href="{{url_for('auth.signup')}}" style="margin-right:30px " class="nav-link"><strong>Sign Up</strong></a>
                 </li>
                 {% endif %}
                 </ul>
