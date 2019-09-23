@@ -1,18 +1,39 @@
-{% extends 'base.html' %}
-{% import 'bootstrap/wtf.html' as wtf%}
-{% import 'macros.html' as macro %}
+<!-- {% extends 'base.html'%}
+{% import "bootstrap/wtf.html" as wtf %}
 
 {% block content %}
-<title>{{title}}</title>
-<div class="container" >
-    <div class="row">
-        <div class="col-md-2"> </div>
-        <div class="col-md-8">  
-                <div class="col-xs-12 col-sm-8 col-lg-8 create-group">
-            
-            {{wtf.quick_form(category_form)}}
+    <div class="container"> -->
+
+        <!-- <div class="col-md-8">
+
+            <img src="{{movie.poster}}" alt="{{movie.title}}" class="img-responsive">
+        </div> -->
+
+        <!-- <div class="col-md-4">
+
+            {{ wtf.quick_form(review_form) }}
+        </div> -->
+        <!-- <div class="col-md-4">
+            {{ wtf.quick_form(review_form) }}
+            {{simplemde.load}}
         </div>
-       
+
+    </div>
+
+{% endblock %} -->
+{% extends 'base.html' %}
+{% import 'bootstrap/wtf.html' as wtf%}
+{% block content %}
+<div class="container" id="particles-js">
+    <div class="row">
+        <div class="jumbotron" style="width: 50%">
+        <div class="col-md-2"> </div>
+        <div class="col-md-8" id="postform">    
+            <h2 class="text-center"> Create Category</h2>   
+            {{wtf.quick_form(form)}}
+        </div>
+        <div class="col-md-2"></div>
+    </div>
     </div>
 </div>
 {% endblock %}

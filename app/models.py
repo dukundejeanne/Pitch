@@ -23,6 +23,7 @@ class User(UserMixin,db.Model):
     comment=db.relationship('Comment',backref='user',lazy="dynamic")
     upvote=db.relationship('Upvote',backref='user',lazy="dynamic")
     downvote=db.relationship('Downvote',backref='user',lazy="dynamic")
+    reviews = db.relationship('Review',backref = 'user',lazy = "dynamic")
 
     @property
     def password(self):
@@ -131,9 +132,11 @@ class Downvote(db.Model):
 class Category(db.Model):
     __tablename__ = 'categories'
     id = db.Column(db.Integer, primary_key = True)
-    name = db.Column(db.String)
+    title=db.Column(db.String(255),nullable = False)
+    post=db.Column(db.Text())
+    user_id=db.Column(db.Integer,db.ForeignKey('users.id'))
 
-    def save_category(self):
+    def save_cat(self):
         db.session.add(self)
         db.session.commit()
 
@@ -141,3 +144,19 @@ class Category(db.Model):
     def get_categories(cls):
         categories = Category.query.all()
         return categories
+
+class Review(db.Model):
+
+    __tablename__ = 'reviews'
+
+    id = db.Column(db.Integer,primary_key = True)
+    name=db.Column(db.String)
+    user_id = db.Column(db.Integer,db.ForeignKey("users.id"))
+    def save_review(self):
+        db.session.add(self)
+        db.session.commit()
+
+    @classmethod
+    def get_reviews(cls,id):
+        reviews = Review.query.filter_by(pitch_id=id).all()
+        return reviews

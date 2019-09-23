@@ -16,6 +16,13 @@ class CommentForm(FlaskForm):
     comment=TextAreaField('Leave a comment',validators=[Required()])
     submit=SubmitField('Comment')
 
+class CategoryForm(FlaskForm):
+
+    title = StringField('Title',validators=[Required()])
+    post=TextAreaField('Your Pitch.', validators=[Required()])
+    submit = SubmitField('Submit')
+    
+
 # class CategoryForm(FlaskForm):
 #     category=TextAreaField('Category')
 #     submit=SubmitField()

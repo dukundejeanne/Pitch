@@ -2,9 +2,10 @@ from flask import render_template,url_for,abort,redirect,request
 from . import main
 from flask_login import login_user,login_required,current_user
 # from .forms import RegistrationForm,LoginForm
-from ..models import User,Pitch,Comment,Upvote,Downvote
+from ..models import User,Pitch,Comment,Upvote,Downvote,Category
 from .. import db,photos
-from .forms import UpdateProfile,PitchForm,CommentForm
+from .forms import UpdateProfile,PitchForm,CommentForm,CategoryForm
+
 
 
 @main.route('/')
@@ -126,3 +127,44 @@ def dislike(id):
     new_downvote=Downvote(user=current_user,pitch_id=id)
     new_downvote.save()
     return redirect(url_for('main.index',id=id))
+
+
+# @main.route('/movie/review/new/<int:id>', methods = ['GET','POST'])
+# @login_required
+# def new_review(id):
+#     form = ReviewForm()
+#     movie = get_movie(id)
+#     if form.validate_on_submit():
+#         title = form.title.data
+#         review = form.review.data
+
+#         # Updated review instance
+#         new_review = Review(movie_id=movie.id,movie_title=title,image_path=movie.poster,movie_review=review,user=current_user)
+
+#         # save review method
+#         new_review.save_review()
+#         return redirect(url_for('.movie',id = movie.id ))
+
+#     title = f'{movie.title} review'
+#     return render_template('new_review.html',title = title, review_form=form, movie=movie)
+@main.route('/category',methods=['GET','POST'])
+@login_required
+def new_category():
+    form=CategoryForm()
+    if form.validate_on_submit():
+        title=form.title.data
+        post=form.post.data
+        # category=form.category.data
+        user_id=current_user
+        new_category_object=Category(post=post,user_id=current_user._get_current_object().id,title=title)
+        new_category_object.save_p()
+        return redirect(url_for('main.index'))
+    return render_template('category.html',form=form)
+
+# @main.route('/review/<int:id>')
+# def single_review(id):
+#     review=Review.query.get(id)
+#     if review is None:
+#         abort(404)
+#     format_review = markdown2.markdown(review.movie_review,extras=["code-friendly", "fenced-code-blocks"])
+#     return render_template('review.html',review = review,format_review=format_review)                                                                                         
