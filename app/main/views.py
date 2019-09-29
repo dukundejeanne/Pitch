@@ -77,7 +77,7 @@ def delet(id):
 
 @main.route('/profile/<int:post_id>/',methods=['GET','POST'])
 @login_required
-def update_blog(postid):
+def update_blog(post_id):
 
 
 
