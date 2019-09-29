@@ -16,10 +16,7 @@
 							<div>
                              
                                 <a href="{{url_for('main.comment',post_id=category.id)}}" class="btn btn-info btn-sm">{{category.comment.count()}} Comment</a>
-                                
-                                <a href="{{url_for('.delete',post_id = category.id)}}"  class="btn btn-info btn-sm">Delete</a>
-                            
-                                
+                                <a href="{{url_for('.delete',post_id=category.id)}}" class="btn btn-info btn-sm">Delete</a>                                                
                             </div>
                         </div>
                            </div>
