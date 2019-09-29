@@ -1,13 +1,36 @@
+
 {% extends 'base.html' %}
 {% import 'macros.html' as macro %}
+
+{% block styles %}
+{{ super() }}
+<link rel="stylesheet" href="{{url_for('static',filename='stylesheets/styles.css')}}">
+<link href="https://fonts.googleapis.com/css?family=Berkshire+Swash&display=swap" rel="stylesheet">
+{% endblock %}
+
 {% block content %}
-<div class="container" id="particles-js">
-    <h2 class="text-center" id="posts"  style="color: white"> Categories</h2>
+<div class="container">
+        <div class="landingspot">
+                <div class="container-fluid">
+                    <div class="textmiddle">
+                        <h2 style="font-family: 'Berkshire Swash', cursive;">Welcome To Blog</h2>
+                        <p><i>{{ quotes.quote }}</i></p>
+                        <p>{{ quotes.author }}</p>
+                       
+                        <!-- <a href="{{url_for('auth.login')}}" class="btn btn-primary">Sign Up</a> -->
+                        <!-- <a href="{{url_for('main.add_blog')}}" class="btn btn-primary">Write An Article</a> -->
+                    </div>
+                </div>
+            </div>
+            <hr>
+            
+<div class="container-fluid" id="particles-js">
+    <!-- <h2 class="text-center" id="posts"  style="color: black"><strong>POST</strong> </h2> -->
     <ul class="nav nav-pills nav-justified nav-fill" role="tablist">
         <li class="nav-item">
-            <a id="cats" class="nav-link"  data-toggle="tab" href="#all" style="color: white"><strong>All Pitches</strong></a>
+            <a id="cats" class="nav-link"  data-toggle="tab" href="#all" style="color: black"><strong>POST</strong></a>
         </li>
-        <li class="nav-item">
+        <!-- <li class="nav-item">
             <a class="nav-link" id="cats" data-toggle="tab" href="#jobs"  style="color: white"><strong>Job </strong></a>
         </li>  
         <li class="nav-item">
@@ -15,20 +38,16 @@
             </li> 
             <li class="nav-item">
                     <a class="nav-link"  id="cats" data-toggle="tab" href="#new"  style="color: white"><strong>News </strong></a>
-                </li> 
+                </li>  -->
 
     </ul>
     <div class="tab-content">
         <div class="container tab-pane active" id="all"> <br>
         {{macro.display(pitches)}} </div>
-        <div class="container tab-pane fade" id="music"> <br>
-            {{macro.display(music)}} </div>
-
-            <div class="container tab-pane fade" id="jobs"> <br>
-                {{macro.display(job)}} </div>
-                <div class="container tab-pane fade" id="new"> <br>
-                    {{macro.display(news)}} </div> 
     </div>
    
 </div>
+
+</div>
+
 {% endblock %}

@@ -2,8 +2,7 @@ from .import db, login_manager
 from werkzeug.security import generate_password_hash,check_password_hash
 from flask_login import UserMixin
 import datetime
-from datetime import datetime
-datetime.utcnow()
+
 
 @login_manager.user_loader
 def load_user(user_id):
@@ -20,8 +19,7 @@ class User(UserMixin,db.Model):
     profile_pic_path=db.Column(db.String(255))
     pitches=db.relationship('Pitch',backref='user',lazy="dynamic")
     comment=db.relationship('Comment',backref='user',lazy="dynamic")
-    upvote=db.relationship('Upvote',backref='user',lazy="dynamic")
-    downvote=db.relationship('Downvote',backref='user',lazy="dynamic")
+
   
 
     @property
@@ -50,16 +48,11 @@ class Pitch(db.Model):
     id=db.Column(db.Integer,primary_key=True)
     title=db.Column(db.String(255),nullable = False)
     post=db.Column(db.Text(),nullable = False)
-    category=db.Column(db.String(255),index=True,nullable = False)
-    votes=db.Column(db.Integer)
-
-    # time=db.Column(db.Datetime, default = datetime.utcnow)
-
+    category=db.Column(db.String(255),index=True)
     user_id=db.Column(db.Integer,db.ForeignKey('users.id'))
      
     comment=db.relationship('Comment',backref='pitch',lazy="dynamic")
-    upvote=db.relationship('Upvote',backref='pitch',lazy="dynamic")
-    downvote=db.relationship('Downvote',backref='pitch',lazy="dynamic")
+
 
     def save_p(self):
         db.session.add(self)
@@ -74,10 +67,15 @@ class Comment(db.Model):
     comment=db.Column(db.Text())
     user_id=db.Column(db.Integer,db.ForeignKey('users.id'))
     pitch_id=db.Column(db.Integer,db.ForeignKey('pitches.id'))
+    article_id = db.Column(db.Integer,db.ForeignKey('articles.id'))
 
     def save_c(self):
         db.session.add(self)
         db.session.commit()
+        
+    # def delete_c(self):
+    #     db.session.delete(self)
+    #     db.session.commit()
 
     @classmethod
     def get_comments(cls,pitch_id):
@@ -86,60 +84,35 @@ class Comment(db.Model):
 
     def __repr__(self):
         return f'comment{self.comment}'
-class Upvote(db.Model):
-    __tablename__='upvotes'
+
+
+
+
+class Article(db.Model):
+    '''
+    This class will contain the database schema for articles table
+    '''
+    __tablename__ = 'articles'
 
     id = db.Column(db.Integer,primary_key = True)
-    
-    user_id=db.Column(db.Integer,db.ForeignKey('users.id'))
-    pitch_id=db.Column(db.Integer,db.ForeignKey('pitches.id'))
+    article = db.Column(db.String)
+    category = db.Column(db.String)
+    user_id = db.Column(db.Integer,db.ForeignKey('users.id'))
+    comments = db.relationship('Comment',backref='article',lazy='dynamic')
 
-    def save(self):
+    def save_article(self):
         db.session.add(self)
         db.session.commit()
 
     @classmethod
-    def get_upvotes(cls,id):
-        upvote=Upvote.query.filter_by(pitch_id=id).all()
-        return upvote
+    def get_article(cls):
+        articles = Article.query.all()
+        return articles
 
-    def __repr__(self):
-        return f'{self.user_id}:{self.pitch_id}'
-
-class Downvote(db.Model):
-
-    __tablename__='downvotes'
-    id = db.Column(db.Integer,primary_key = True)
-    user_id=db.Column(db.Integer,db.ForeignKey('users.id'))
-    pitch_id=db.Column(db.Integer,db.ForeignKey('pitches.id'))
-
-    def save(self):
-        db.session.add(self)
-        db.session.commit()
-
-    @classmethod
-    def get_downvotes(cls,id):
-
-
-        downvote = Downvote.query.filter_by(pitch_id=id).all()
-        return downvote
-
-    def __repr__(self):
-        return f'{self.user_id}:{self.pitch_id}'
-
-
-class Category(db.Model):
-    __tablename__ = 'categories'
-    id = db.Column(db.Integer, primary_key = True)
-    title=db.Column(db.String(255),nullable = False)
-    post=db.Column(db.Text())
-    user_id=db.Column(db.Integer,db.ForeignKey('users.id'))
-
-    def save_cat(self):
-        db.session.add(self)
-        db.session.commit()
-
-    @classmethod
-    def get_categories(cls):
-        categories = Category.query.all()
-        return categories
+class Quotes:
+    def __init__(self,author,quote):
+        '''
+        class of Quote
+        '''
+        self.author=author
+        self.quote=quote

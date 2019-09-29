@@ -1,28 +1,31 @@
 
 
-
 {% macro display(piches) %}
 <div class="container-fluid">
     <div class="row">
         {% if piches %}
             {% for category in piches %}
 				<div class="col-md-4" >
-                        <div class="jumbotron" style="width:90%; height: 80%;">
+                        <div class="jumbotron" style="width:80%; height: 70%;">
                     <!-- <div class="thumbnail" id="carded">-->
                    <h5 > {{category.title}}</h5> 
 						<div> 
                             <p>{{category.post}}</p>
-                            <p class="text-center">Category: {{category.category}}</p>
+                            <!-- <p class="text-center">Category: {{category.category}}</p> -->
 							<footer class="blockquote-footer text-center"> Posted by: {{category.user.username}}</footer>
-							<div><span class="foot">{{category.comment.count()}} Comments</span>
-                                <span class="foot"><a href="{{url_for('main.like',id=category.id)}}"><i class="fa fa-thumbs-up" style="font-size:18px;color:green"></i></a>{{category.upvote.count()}}</span>
-                                <span class="foot"><a href="{{url_for('main.dislike',id=category.id)}}"><i class="fa fa-thumbs-down" style="font-size:18px;color:red"></i></a>{{category.downvote.count()}}</span>
-                                <a href="{{url_for('main.comment',pitch_id=category.id)}}" class="btn btn-info btn-sm">Comment</a>
+							<div>
+                             
+                                <a href="{{url_for('main.comment',pitch_id=category.id)}}" class="btn btn-info btn-sm">{{category.comment.count()}} Comment</a>
+                                
+                                <a href="{{url_for('.delete',pitch_id = category.id)}}"  class="btn btn-info btn-sm">Delete</a>
+                            
+                                
                             </div>
                         </div>
                            </div>
                         </div>
-					{% endfor %}
+                    {% endfor %}
+                   
                 {% else %}
                     <div class="col-md-4">
                         <div class="card-body">

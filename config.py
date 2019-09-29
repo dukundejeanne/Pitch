@@ -2,7 +2,8 @@ import os
 
 
 class Config:
-  
+    
+    QUOTES_URL='http://quotes.stormconsultancy.co.uk/random.json'
     SQLALCHEMY_TRECK_MODIFICATIONS=True
     SECRET_KEY=('SECRET_KEY')
     UPLOADED_PHOTOS_DEST='app/static/photos'
@@ -15,7 +16,7 @@ class Config:
      # simple mde  configurations
     SIMPLEMDE_JS_IIFE = True
     SIMPLEMDE_USE_CDN = True
-    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://wecode:12@localhost/pitches'
+    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://wecode:12@localhost/blogs'
 
 
 class ProdConfig(Config):
@@ -25,7 +26,7 @@ class ProdConfig(Config):
 
 class TestConfig(Config):
 
-    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://wecode:12@localhost/pitchestest'
+    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://wecode:12@localhost/blogstest'
 
 class DevConfig(Config):
 

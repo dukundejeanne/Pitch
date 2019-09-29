@@ -12,6 +12,9 @@
                             <h5>{{comment.pitch.title}}</h5>
                             <p class="card-title">{{comment.comment }}</p>
                             <p class="card-text">---{{comment.user.username }}</p>
+                            <a href="{{url_for('.delet',id =comment.id)}}"  class="btn btn-info btn-sm">Delete</a>
+                           
+                            
                         </div>
                     </div>
                     {% endfor %}

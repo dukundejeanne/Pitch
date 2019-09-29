@@ -1,20 +1,25 @@
 
 <nav class="mb-1 navbar navbar-expand-lg navbar-dark" >
     
-        <a class="navbar-brand" href="{{url_for('main.index')}}" style="color: black"><strong>Pich</strong> </a>
+        <a class="navbar-brand" href="{{url_for('main.index')}}" style="color: black"><strong>BLOG</strong> </a>
     <div  class="collapse navbar-collapse">
                 <ul class="navbar-nav mr-auto">
-                        <li class="nav-item">
+                    
+                    <!-- <li class="nav-item">
                    
-                            <a class="nav-link" href="{{url_for('main.index')}}" style="color: black">All Pitches</a>
-                    </li>
+                        <a class="nav-link" href="{{url_for('main.index')}}" style="color: black">Blog</a>
+                </li> -->
                     {% if current_user.is_authenticated %}
                     <li class="nav-item">                    
-                            <a class="nav-link" href="{{url_for('main.new_pitch')}}"  style="color: black">New Pitch</a>
+                            <a class="nav-link" href="{{url_for('main.new_pitch')}}"  style="color: black">New Post</a>
                     </li>
-                    <li class="nav-item">                    
-                                <a class="nav-link" href="{{url_for('main.new_category')}}"  style="color: black">New Category</a>
+                 
+                        <li class="nav-item">
+                   
+                                <a class="nav-link" href="{{url_for('main.index')}}" style="color: black">All Post</a>
                         </li>
+                        <!-- <li class="nav-item">
+                                <a href="{{url_for('main.profile',name=current_user.username)}}"  style="color: black">Profile</a></li> -->
                     {% endif %}
                 </ul>
             <ul class="navbar-nav ml-auto">
