@@ -11,7 +11,7 @@
                 </li> -->
                     {% if current_user.is_authenticated %}
                     <li class="nav-item">                    
-                            <a class="nav-link" href="{{url_for('main.new_pitch')}}"  style="color: black">New Post</a>
+                            <a class="nav-link" href="{{url_for('main.new_post')}}"  style="color: black">New Post</a>
                     </li>
                  
                         <li class="nav-item">
@@ -26,11 +26,11 @@
                {% if current_user.is_authenticated %}
         
                 <li class="nav-item">
-                        <a href="{{url_for('main.profile',name=current_user.username)}}"  style="color: white">Profile</a></li>
+                        <a href="{{url_for('main.profile',name=current_user.username)}}"  style="color: black">Profile</a></li>
                         <br>
             
                 <div >
-                     <a  href="{{url_for('auth.logout')}}" style="color: white"> Log Out</a>
+                     <a  href="{{url_for('auth.logout')}}" style="color: black"> Log Out</a>
                
                 </div>
             </li>

@@ -2,7 +2,6 @@ from flask_wtf import  FlaskForm
 from wtforms import StringField,SelectField,TextAreaField,SubmitField
 from wtforms.validators import Required
 
-from ..models import Article
 
 class UpdateBlogForm(FlaskForm):
     title=StringField('Title', validators=[Required()])
@@ -10,11 +9,11 @@ class UpdateBlogForm(FlaskForm):
     post=TextAreaField('Your Post.', validators=[Required()])
     submit=SubmitField('save')
 
-class PitchForm(FlaskForm):
+class PostForm(FlaskForm):
     title=StringField('Title', validators=[Required()])
     category=SelectField('Category',choices=[('Music','Music'),('Job','Job'),('News','News')], validators=[Required()])
     post=TextAreaField('Your Post', validators=[Required()])
-    submit=SubmitField('Pitch')
+    submit=SubmitField('Post')
 
 class CommentForm(FlaskForm):
     comment=TextAreaField('Leave a comment',validators=[Required()])
@@ -23,14 +22,7 @@ class CommentForm(FlaskForm):
 class BlogForm(FlaskForm):
 
     post=TextAreaField('Title',validators=[Required()])
-    category=StringField('Your Pitch.', validators=[Required()])
+    category=StringField('Your Post.', validators=[Required()])
     submit = SubmitField('Submit')
 
-class ArticleUploadForm(FlaskForm):
-    article = TextAreaField('Article',validators=[Required()])
-    category = StringField('Title',validators=[Required()])
-    submit = SubmitField('Add Article')
 
-# class CategoryForm(FlaskForm):
-#     category=TextAreaField('Category')
-#     submit=SubmitField()

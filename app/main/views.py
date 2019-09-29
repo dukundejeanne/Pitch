@@ -2,56 +2,56 @@ from flask import render_template,url_for,abort,redirect,request
 from . import main
 from flask_login import login_user,login_required,current_user
 # from .forms import RegistrationForm,LoginForm
-from ..models import User,Pitch,Comment,Quotes,Article
+from ..models import User,Post,Comment,Quotes
 from .. import db,photos
-from .forms import UpdateBlogForm,PitchForm,CommentForm,BlogForm
+from .forms import UpdateBlogForm,PostForm,CommentForm,BlogForm
 import requests
 
 from ..requests import getQuotes
 
 @main.route('/')
 def index():
-    pitches=Pitch.query.all()
-    job=Pitch.query.filter_by(category='Job').all()
-    music=Pitch.query.filter_by(category='Music').all()
-    news=Pitch.query.filter_by(category='News').all() 
+    postes=Post.query.all()
+    job=Post.query.filter_by(category='Job').all()
+    music=Post.query.filter_by(category='Music').all()
+    news=Post.query.filter_by(category='News').all() 
     quotes=getQuotes()
 
-    return render_template('index.html',job=job,music=music,pitches=pitches,news=news,quotes=quotes)
+    return render_template('index.html',job=job,music=music,postes=postes,news=news,quotes=quotes)
 @main.route('/create_new',methods=['GET','POST'])
 @login_required
-def new_pitch():
-    form=PitchForm()
+def new_post():
+    form=PostForm()
     if form.validate_on_submit():
         title=form.title.data
         post=form.post.data
         category=form.category.data
         user_id=current_user
-        new_pitch_object=Pitch(post=post,user_id=current_user._get_current_object().id,category=category,title=title)
-        new_pitch_object.save_p()
+        new_post_object=Post(post=post,user_id=current_user._get_current_object().id,category=category,title=title)
+        new_post_object.save_p()
         return redirect(url_for('main.index'))
     return render_template('create.html',form=form)
 
 
-@main.route('/comment/<int:pitch_id>',methods=['GET','POST'])
+@main.route('/comment/<int:post_id>',methods=['GET','POST'])
 # @login_required
-def comment(pitch_id):
+def comment(post_id):
     form=CommentForm()
-    pitch=Pitch.query.get(pitch_id)
-    all_comments=Comment.query.filter_by(pitch_id=pitch_id).all()
+    post=Post.query.get(post_id)
+    all_comments=Comment.query.filter_by(post_id=post_id).all()
     if form.validate_on_submit():
         comment=form.comment.data
-        pitch_id=pitch_id
+        post_id=post_id
         # user_id=current_user._get_current_object().id
-        new_comment=Comment(comment=comment,pitch_id=pitch_id)
+        new_comment=Comment(comment=comment,post_id=post_id)
         new_comment.save_c() 
-        return redirect(url_for('.comment',pitch_id=pitch_id))
-    return render_template('comment.html',form=form,pitch=pitch,all_comments=all_comments)
+        return redirect(url_for('.comment',post_id=post_id))
+    return render_template('comment.html',form=form,post=post,all_comments=all_comments)
 
-@main.route ('/index/<int:pitch_id>delete',methods=['GET','POST'])
+@main.route ('/index/<int:post_id>delete',methods=['GET','POST'])
 @login_required
-def delete(pitch_id):
-    current_post=Pitch.query.filter_by(id=pitch_id).first()
+def delete(post_id):
+    current_post=Post.query.filter_by(id=post_id).first()
     # if current_post
     if current_post.user != current_user:
         abort(403)
@@ -75,13 +75,13 @@ def delet(id):
 
   
 
-@main.route('/profile/<int:pitch_id>/',methods=['GET','POST'])
+@main.route('/profile/<int:post_id>/',methods=['GET','POST'])
 @login_required
-def update_blog(pitch_id):
+def update_blog(postid):
 
 
 
-    current_post= Pitch.query.filter_by(id = pitch_id).first()
+    current_post= Post.query.filter_by(id = post_id).first()
    
 
     if current_post.user != current_user:
@@ -107,7 +107,7 @@ def profile(name):
 
     user=User.query.filter_by(username = name).first()
     user_id=current_user._get_current_object().id
-    posts=Pitch.query.filter_by(user_id = user_id).all()
+    posts=Post.query.filter_by(user_id = user_id).all()
     if user is None:
         abort(404)
     return render_template("profile/profile.html",user=user,posts=posts)

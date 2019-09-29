@@ -10,15 +10,13 @@
                    <h5 > {{category.title}}</h5> 
 						<div> 
                             <p>{{category.post}}</p>
-                            <!-- <p class="text-center">Category: {{category.category}}</p> -->
+                            
 							<footer class="blockquote-footer text-center"> Posted by: {{category.user.username}}</footer>
 							<div>
-                                <!-- <span class="foot">{{category.comment.count()}} Comments</span> -->
-                                <!-- <span class="foot"><a href="{{url_for('main.like',id=category.id)}}"><i class="fa fa-thumbs-up" style="font-size:18px;color:green"></i></a>{{category.upvote.count()}}</span>
-                                <span class="foot"><a href="{{url_for('main.dislike',id=category.id)}}"><i class="fa fa-thumbs-down" style="font-size:18px;color:red"></i></a>{{category.downvote.count()}}</span> -->
-                                <a href="{{url_for('main.comment',pitch_id=category.id)}}" class="btn btn-info btn-sm">{{category.comment.count()}} Comment</a>
-                                <a href="{{url_for('.delete',pitch_id = category.id)}}"  class="btn btn-info btn-sm">Delete</a>
-                                <!-- <a href="{{url_for('main.updateBlog', name=user.username)}}"  class="btn btn-info btn-sm">Update</a> -->
+                               foot"><a href="{{url_for('main.dislike',id=category.id)}}"><i class="fa fa-thumbs-down" style="font-size:18px;color:red"></i></a>{{category.downvote.count()}}</span> -->
+                                <a href="{{url_for('main.comment',post_id=category.id)}}" class="btn btn-info btn-sm">{{category.comment.count()}} Comment</a>
+                                <a href="{{url_for('.delete',post_id = category.id)}}"  class="btn btn-info btn-sm">Delete</a>
+                               
                             </div>
                         </div>
                            </div>

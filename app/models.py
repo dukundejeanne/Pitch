@@ -17,7 +17,7 @@ class User(UserMixin,db.Model):
     pass_secure=db.Column(db.String(255))   
     bio=db.Column(db.String(255))
     profile_pic_path=db.Column(db.String(255))
-    pitches=db.relationship('Pitch',backref='user',lazy="dynamic")
+    postes=db.relationship('Post',backref='user',lazy="dynamic")
     comment=db.relationship('Comment',backref='user',lazy="dynamic")
 
   
@@ -42,16 +42,16 @@ class User(UserMixin,db.Model):
     def __repr__(self):
         return f'User{self.username}'
 
-class Pitch(db.Model):
+class Post(db.Model):
 
-    __tablename__='pitches'
+    __tablename__='postes'
     id=db.Column(db.Integer,primary_key=True)
     title=db.Column(db.String(255),nullable = False)
     post=db.Column(db.Text(),nullable = False)
     category=db.Column(db.String(255),index=True)
     user_id=db.Column(db.Integer,db.ForeignKey('users.id'))
      
-    comment=db.relationship('Comment',backref='pitch',lazy="dynamic")
+    comment=db.relationship('Comment',backref='post',lazy="dynamic")
 
 
     def save_p(self):
@@ -59,15 +59,15 @@ class Pitch(db.Model):
         db.session.commit()
     
     def __repr__(self):
-        return f'Pitch {self.post}'
+        return f'Post {self.post}'
 
 class Comment(db.Model):
     __tablename__='comments'
     id=db.Column(db.Integer,primary_key=True)
     comment=db.Column(db.Text())
     user_id=db.Column(db.Integer,db.ForeignKey('users.id'))
-    pitch_id=db.Column(db.Integer,db.ForeignKey('pitches.id'))
-    article_id = db.Column(db.Integer,db.ForeignKey('articles.id'))
+    post_id=db.Column(db.Integer,db.ForeignKey('postes.id'))
+    # article_id = db.Column(db.Integer,db.ForeignKey('articles.id'))
 
     def save_c(self):
         db.session.add(self)
@@ -78,8 +78,8 @@ class Comment(db.Model):
     #     db.session.commit()
 
     @classmethod
-    def get_comments(cls,pitch_id):
-        comments=Comment.query.filter_by(pitch_id=id).all()
+    def get_comments(cls,post_id):
+        comments=Comment.query.filter_by(post_id=id).all()
         return comments
 
     def __repr__(self):
@@ -88,26 +88,26 @@ class Comment(db.Model):
 
 
 
-class Article(db.Model):
-    '''
-    This class will contain the database schema for articles table
-    '''
-    __tablename__ = 'articles'
+# class Article(db.Model):
+#     '''
+#     This class will contain the database schema for articles table
+#     '''
+#     __tablename__ = 'articles'
 
-    id = db.Column(db.Integer,primary_key = True)
-    article = db.Column(db.String)
-    category = db.Column(db.String)
-    user_id = db.Column(db.Integer,db.ForeignKey('users.id'))
-    comments = db.relationship('Comment',backref='article',lazy='dynamic')
+#     id = db.Column(db.Integer,primary_key = True)
+#     article = db.Column(db.String)
+#     category = db.Column(db.String)
+#     user_id = db.Column(db.Integer,db.ForeignKey('users.id'))
+#     comments = db.relationship('Comment',backref='article',lazy='dynamic')
 
-    def save_article(self):
-        db.session.add(self)
-        db.session.commit()
+#     def save_article(self):
+#         db.session.add(self)
+#         db.session.commit()
 
-    @classmethod
-    def get_article(cls):
-        articles = Article.query.all()
-        return articles
+#     @classmethod
+#     def get_article(cls):
+#         articles = Article.query.all()
+#         return articles
 
 class Quotes:
     def __init__(self,author,quote):

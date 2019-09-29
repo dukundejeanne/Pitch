@@ -16,9 +16,6 @@
                         <h2 style="font-family: 'Berkshire Swash', cursive;">Welcome To Blog</h2>
                         <p><i>{{ quotes.quote }}</i></p>
                         <p>{{ quotes.author }}</p>
-                       
-                        <!-- <a href="{{url_for('auth.login')}}" class="btn btn-primary">Sign Up</a> -->
-                        <!-- <a href="{{url_for('main.add_blog')}}" class="btn btn-primary">Write An Article</a> -->
                     </div>
                 </div>
             </div>
@@ -30,20 +27,12 @@
         <li class="nav-item">
             <a id="cats" class="nav-link"  data-toggle="tab" href="#all" style="color: black"><strong>POST</strong></a>
         </li>
-        <!-- <li class="nav-item">
-            <a class="nav-link" id="cats" data-toggle="tab" href="#jobs"  style="color: white"><strong>Job </strong></a>
-        </li>  
-        <li class="nav-item">
-                <a class="nav-link" id="cats" data-toggle="tab" href="#music"  style="color: white"><strong>Music </strong></a>
-            </li> 
-            <li class="nav-item">
-                    <a class="nav-link"  id="cats" data-toggle="tab" href="#new"  style="color: white"><strong>News </strong></a>
-                </li>  -->
+  
 
     </ul>
     <div class="tab-content">
         <div class="container tab-pane active" id="all"> <br>
-        {{macro.display(pitches)}} </div>
+        {{macro.display(postes)}} </div>
     </div>
    
 </div>
