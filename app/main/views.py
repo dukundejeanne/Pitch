@@ -14,21 +14,10 @@ def index():
     pitches=Pitch.query.all()
     job=Pitch.query.filter_by(category='Job').all()
     music=Pitch.query.filter_by(category='Music').all()
-    news=Pitch.query.filter_by(category='News').all()
-    articles = Article.get_article()
-    try:
-        quotes = getQuotes()
-    except Exception as e:
-        quotes = "quotes unavailable"
-    # title='Welcome to the article'
-    # return render_template('index.html',quotes = quotes)
-    # category=Category.get_categories()
-    # return render_template('index.html',category=category)
+    news=Pitch.query.filter_by(category='News').all() 
+    quotes=getQuotes()
 
-    return render_template('index.html',job=job,music=music,pitches=pitches,news=news,quotes = quotes)
-
-
-
+    return render_template('index.html',job=job,music=music,pitches=pitches,news=news,quotes=quotes)
 @main.route('/create_new',methods=['GET','POST'])
 @login_required
 def new_pitch():
@@ -45,7 +34,7 @@ def new_pitch():
 
 
 @main.route('/comment/<int:pitch_id>',methods=['GET','POST'])
-@login_required
+# @login_required
 def comment(pitch_id):
     form=CommentForm()
     pitch=Pitch.query.get(pitch_id)
@@ -53,17 +42,17 @@ def comment(pitch_id):
     if form.validate_on_submit():
         comment=form.comment.data
         pitch_id=pitch_id
-        user_id=current_user._get_current_object().id
+        # user_id=current_user._get_current_object().id
         new_comment=Comment(comment=comment,pitch_id=pitch_id)
         new_comment.save_c() 
         return redirect(url_for('.comment',pitch_id=pitch_id))
     return render_template('comment.html',form=form,pitch=pitch,all_comments=all_comments)
 
-
-@main.route('/index/<int:pitch_id>/delete',methods=['GET','POST'])
+@main.route ('/index/<int:pitch_id>delete',methods=['GET','POST'])
 @login_required
 def delete(pitch_id):
-    current_post= Pitch.query.filter_by(id = pitch_id).first()
+    current_post=Pitch.query.filter_by(id=pitch_id).first()
+    # if current_post
     if current_post.user != current_user:
         abort(403)
     db.session.delete(current_post)
